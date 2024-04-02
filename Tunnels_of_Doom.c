@@ -1,11 +1,3 @@
-/*
-    Author: Nahom Abera
-    Course: System Level Programming (CSC3320)
-    Date: April 2, 2024
-    App Name: Tunnels of Doom
-    App Purpose: A command line game
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
