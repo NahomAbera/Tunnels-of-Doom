@@ -8,9 +8,9 @@
 /*
     This function takes a string, integer pointer and an array as a parameter and does the following:
         1. Checks if the string is either 'q' or 'Q', if so exits the app.
-        2. Checks if the user input conatins three digits, if not a shows message and exits the app.
-        3. Checks if all the inputs by the user are numbers, if not a shows message and exits the app.
-        4. If the inputs passes all the above checks, then the function takes the input from the string and stores in an integer by dereferencing the integer pointer.
+        2. Checks if the user input conatins three digits, if not shows an error message and exits the app.
+        3. Checks if all the inputs by the user are numbers, if not shows an error message and exits the app.
+        4. If the inputs passes all the above requirements, then the function takes the input from the string and stores in an int variable by dereferencing the integer pointer.
         5. Then stores all the digits of the user input in integer array for further operations.
 */
 void inputValidator(char input[4], int *userInput, int userNumber[3] ){
@@ -40,7 +40,7 @@ int main() {
     do{
         int tries = 8;
 
-        int num = rand() % (999 - 99 + 1) + 99; // Generate a three digit value for new game.
+        int num = rand() % (999 - 99 + 1) + 99; // Generate a random three digit value for every new game.
         int number[3];
 
         printf("\n%d\n", num);
@@ -59,22 +59,22 @@ int main() {
             printf("\n%d tries remaining, what's the code? ", tries);
             scanf("%3s", input);
 
-            inputValidator(input, &userInput, userNumber); // Call the inputValidator to validate the input
+            inputValidator(input, &userInput, userNumber); // Call the inputValidator() function to validate the input
 
-            tries -= 1; //Decrease the amount of tries remaining by 1
+            tries -= 1; // Decrease the amount of tries remaining by 1
 
-            if (userInput == num){ //If the user inputs the right number
+            if (userInput == num){ // If the user inputs the right number
                 printf("You Opened the Vault!");
                 break;
             }else{
                 char comparison[10];
-                int arr[3]; //create an array for storing the indexes of the number array which have been already matched.  
-                arr[0] = -1; arr[1] = -1; arr[2] = -1; //Intialize the array with -1 for further operations
+                int arr[3]; 
+                arr[0] = -1; arr[1] = -1; arr[2] = -1; // Intialize the array with -1 for further operations
 
-                if (userInput < num) {strcpy(comparison, "Too Low");} else{strcpy(comparison, "Too High");} //Compare the user input and the generated number and assign too high or too low.
+                if (userInput < num) {strcpy(comparison, "Too Low"); } else{strcpy(comparison, "Too High"); } // Compare the user input and the generated number and assign too high or too low.
                 int matchDigits = 0, k=0;
                 
-                //The following for loop is used to identify digits that are correct and in the right place. 
+                // The following for loop is used to identify digits that are correct and in the right place. 
                 for (int i = 0; i < sizeof(userNumber)/sizeof(userNumber[0]); i++){
                     if (userNumber[i] == number[i]){
                         matchDigits++;
@@ -82,7 +82,7 @@ int main() {
                     }
                 } 
                 
-                //The following for loop is used to identify digits that are correct and but in the wrong place. 
+                // The following for loop is used to identify digits that are correct and but in the wrong place. 
                 int incorrectPlace = 0;
                 for (int i = 0; i < sizeof(userNumber)/sizeof(userNumber[0]);i++){
                     for (int n = 0; n < sizeof(number)/sizeof(number[0]); n++){
@@ -97,7 +97,7 @@ int main() {
                 printf("%s, %d digits are correct and in the right place, %d digits are correct and in the wrong place.", comparison, matchDigits, incorrectPlace);
 
             }
-            if (tries == 0){ // Check is the user have use all of his tries, if so break from the loop and start a new game.
+            if (tries == 0){ // Check if the user have used all of its tries, if so break from the loop, display the secret code and start a new game.
                     printf("The vault shuts down permanently due to too many incorrect attempts. You failed to open the vault!\nThe secret code was %d", num);
                     break;
                 }
